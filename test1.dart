@@ -1,4 +1,8 @@
-inventario\n3.realizar venta\n4.mostrar ganancias totales\n5.salir");
+import "dart:io";
+void main() {
+  bool salir = false;
+  while (!salir){
+    print("Menu principal gestor de inventarios\n por favor seleccione la opcion que decea con su respectivo numero\n1.menu gestion de productos(agregar,buscar y eliminar)\n2.mostrar inventario\n3.realizar venta\n4.mostrar ganancias totales\n5.salir");
     int opciones1=int.parse(stdin.readLineSync()!);
       if (opciones1==1){
         print("por favor seleccione la opccion deseada\n1.agregar peluchito\n2.buscar peluchito\n3.eliminar peluchito\n4.salir\n5.volver atras");
