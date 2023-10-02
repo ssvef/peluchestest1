@@ -8,7 +8,7 @@ void main() {
         print("por favor seleccione la opccion deseada\n1.agregar peluchito\n2.buscar peluchito\n3.eliminar peluchito\n4.salir\n5.volver atras");
         int opciones2=int.parse(stdin.readLineSync()!);
       if(opciones2==1){
-          Map<String,int>agregar={};
+          Map<String,String>agregar={};
           bool nomas= false;
           double valortotal=0.0;
           while(!nomas){
@@ -16,24 +16,25 @@ void main() {
           print("ingrese el nombre del pelcuhce");
           String nombrepeluche= stdin.readLineSync()!;
           print("ingrese la cantidad de peluches $nombrepeluche");
-          int cantidadpeluches= int.parse(stdin.readLineSync()!);
-          agregar[nombrepeluche]= cantidadpeluches;
-          print("cual es el precio individual de $nombrepeluche?");
-          double valorpeluche= double.parse(stdin.readLineSync()!); 
-          double valorsubtotal= valorpeluche*cantidadpeluches;
-          valortotal+=valorsubtotal;
+          String cantidadpeluches= stdin.readLineSync()!;
+         print("cual es el precio individual de $nombrepeluche?");
+          String valorpeluche= stdin.readLineSync()!;
+             agregar[nombrepeluche]= cantidadpeluches+"/"+valorpeluche;
           print("decea agregar mas peluches?\n1.si\n2.no");
           int agregarmas= int.parse(stdin.readLineSync()!);
           if(agregarmas==1){
           print("está bien");
           }else if(agregarmas==2|| agregarmas>2){
           nomas=true;
+            //verificar la separacion del valor de la llave
+            //operacion de separacion
           print("lista de peluches");
           agregar.forEach((key, value) {
           print("$key, cantidad: $value");
           },);
           print("Valor total de todos los peluches: \$${valortotal.toStringAsFixed(2)}");
-          }    
+          }   
+            print(agregar); // testing stiwarth
           }}else if (opciones2==2){
           //TODO LO RELACIONADO A BUSCAR PELUCHITO
         }else if(opciones2==3){
