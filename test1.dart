@@ -1,129 +1,65 @@
-// Integrantes: Castrillon Camilo, Vega Stiwarth
 import "dart:io";
-List<List<dynamic>> inventory = [];
-//main menu
-void main(){
-  int option;
-  do{ 
-  print("\nMenu principal gestor de inventarios\nPor favor seleccione acción a realizar\n\n1.Agregar\n2.Buscar\n3.Eliminar\n4.Mostrar inventario\n5.Realizar venta\n6.Mostrar ganancias totales\n7.Salir\n");
- option = int.parse(stdin.readLineSync()!);
-    switch (option){
-      case 1:
-      addplushtoy();
-        break;
-      case 2: 
-        lookforplushtoy();
-        break;
-      case 3:
-        deleteplushtoy();
-        break;
-      case 4:
-        mostrarinventario();
-        break;
-      case 5:
-       realizarventa();
-        break;
-      case 6:
-        mostrargananciastotales();
-        break;
-      case 7:
-        print("\nEl programa se cerrará. Gracias por su tiempo"); 
-        break;
-      default:
-        print("\nOpcion invalida intente de nuevo por favor.\n");
-        break;
-    }
-  }while (option != 7);  
-}
-
-void addplushtoy() {
-  String toyname;
-  int toyamount, toyprice,option;
-  do{
-  print("\nA continuación debe ingresar los siguientes datos para registrar el peluche");
-  print("Ingrese el nombre del peluche");
-     toyname= stdin.readLineSync()!;
-  print("\nIngrese la cantidad en stock para el peluche \"$toyname\"");
-    toyamount= int.parse(stdin.readLineSync()!);
-  print("\nIngrese el valor unitario para el peluche \"$toyname\"");
-     toyprice= int.parse(stdin.readLineSync()!); 
-  List <dynamic>plushtoy= [toyname, toyamount,toyprice,1];//creacion de lista para guardar los peluches, dinamica, la estatica es inventory.
-  inventory.add (plushtoy);
-  for(var plushtoy in inventory ){
-    if (plushtoy[0] == toyname) {
-    print("\nEl peluche $toyname fue registrado correctamente.\n");
-  }else{
-      print("Ocurrio un error en el registro, intente nuevamente.");
-  }
-}
-    print("¿Desea añadir un nuevo peluche? Responda 1 para Si o 2 para No\n Si responde que no regresará al menu principal");
-    option=int.parse(stdin.readLineSync()!);
-  }while(option==1);
-}
-
-void lookforplushtoy(){
-  String toyname;
-  int option=1;
-  do{
-    print("\nIngrese el nombre del peluche a consultar");
-    toyname = stdin.readLineSync()!;
-  print("\nLISTA DE PELUCHES EN STOCK");
-   for(var plushtoy in inventory ){
-    if (plushtoy[0] == toyname) {
-   print("Se encontró la siguiente existencia:\n\nNombre: ${plushtoy[0]}, Cantidad: ${plushtoy[1]}, Valor: \$${plushtoy[2]} pesos\n\n¿Desea generar una nueva consulta?Responda 1 para Si o 2 para No\n Si responde que no regresará al menu principal");
-      option=int.parse(stdin.readLineSync()!);
-    }else{
-      print ("El nombre $toyname no existe en el inventario.\n¿Desea generar una nueva consulta?Responda 1 para Si o 2 para No\n Si responde que no regresará al menu principal");
-      option=int.parse(stdin.readLineSync()!);
-    }
-  }
-}while(option==1);
-}
-
-void deleteplushtoy() {
+List<List<dynamic>> inventario = [];
+void agregarpeluche() {
+  print("por favor ingrese el nombre del peluche y su cantidad");
+ print("ingrese el nombre del pelcuhce");
+String nombrepeluche= stdin.readLineSync()!;
+  print("ingrese la cantidad de peluches $nombrepeluche");
+ int cantidadpeluche= int.parse(stdin.readLineSync()!);
+  print("cual es el precio individual de $nombrepeluche?");
+double valorpeluche= double.parse(stdin.readLineSync()!); 
   
-  int option=1,warning;
-  String toyname;
-  do{
-    print("********!ALERTA¡********\n\nAcaba de ingresar al menú de eliminación tenga presente que este menú tiene dos opciones de eliminación.\nLa primera opcion consiste en eliminar el producto dejando un registro de existencia para auditoria.\nEl segundo tipo de eliminación es una eliminacion definitiva, no quedará registro de la existencia del producto.\nA continuación digite el numero 1 si comprende esta información para prodeceder al menu de opciones.\n");
-    warning=int.parse(stdin.readLineSync()!);
-  }while(warning!=1);
-  do{
-print("*****MENU DE ELIMINACION DE PELUCHES.*****\n");
-if(inventory.isEmpty==true){
-    print ("Actualmente no hay productos en stock.\nRecomendamos agregar nuevos peluches.\nIngrese un numero diferente a 1 para regresar al menu principal.");
-      option=int.parse(stdin.readLineSync()!);
-}else{
-  print("\nIngrese el nombre del peluche a eliminar:\n");
-    toyname = stdin.readLineSync()!;
-   for (var plushtoy in inventory) { 
-       if(plushtoy[0] == toyname){ 
-        inventory.remove(plushtoy);
-          print("Peluche eliminado.\n¿Desea generar una nueva consulta?Responda 1 para Si o 2 para No.Si responde que no regresará al menu principal");
-         option=int.parse(stdin.readLineSync()!);
-   }else{
-         print ("\nEl nombre $toyname no existe en el inventario.\n\n¿Desea generar una nueva consulta para eliminar el peluche?Responda 1 para Si o 2 para No\n Si responde que no regresará al menu principal");
-	option=int.parse(stdin.readLineSync()!);} 
+  List <dynamic>peluche= [nombrepeluche, cantidadpeluche,valorpeluche];
+  inventario.add (peluche);
+}
+void buscarpeluche(){
+   print("Ingrese el nombre del peluche: que decea buscarr:");
+  String nombre = stdin.readLineSync()!;
+  bool encontrado = false;
+  
+  for (var peluche in inventario) {
+    if (peluche[0] == nombre) {
+      print("Nombre: ${peluche[0]}, Cantidad: ${peluche[1]}, Valor: \$${peluche[2]}");
+      encontrado = true;
+      break;
+    }
   } 
+  if(!encontrado){
+    print ("ese peluche no existe");
+  }
 }
-  }while(option!=1);
-}
- void mostrarinventario(){
-for (var plushtoy in inventory){
-print("el inventario completo es:${plushtoy[0]}, Cantidad: ${plushtoy[1]}, Valor: \$${plushtoy[2]}");
-}
- }
+void eliminarpeluche() {
+  print("Ingrese el nombre del peluche:");
+  String nombre = stdin.readLineSync()!;
+  bool eliminado = false;
 
+  for (var peluche in inventario) {
+    if (peluche[0] == nombre) {
+      inventario.remove(peluche);
+      eliminado = true;
+      print("Peluche eliminado.");
+      break;
+    }
+  }
+  if (!eliminado) {
+    print("ese peluche no existe");
+  }
+}
+void mostrarinventario(){
+for (var peluche in inventario){
+print("el inventario completo es:${peluche[0]}, Cantidad: ${peluche[1]}, Valor: \$${peluche[2]}");
+}
+}
 void realizarventa() {
   print("Ingrese el nombre del peluche:");
   String nombre = stdin.readLineSync()!;
   bool encontrado = false;
-  for (var plushtoy in inventory) {
-    if (plushtoy[0] == nombre) {
+  for (var peluche in inventario) {
+    if (peluche[0] == nombre) {
       print("Ingrese la cantidad a vender:");
       int cantidadventa = int.parse(stdin.readLineSync()!);
-      if (cantidadventa <= plushtoy[1]) {
-        plushtoy[1] -= cantidadventa;
+      if (cantidadventa <= peluche[1]) {
+        peluche[1] -= cantidadventa;
         print("Venta realizada.");
       } else {
         print("No hay suficientes peluches en inventario.");
@@ -135,11 +71,45 @@ void realizarventa() {
 }
 void mostrargananciastotales() {
   double gananciastotales= 0.0;
-  for (var plushtoy in inventory){
-  double gananciassubtotales= plushtoy[2]*plushtoy[1];
-print("las ganancias totales por peluche son: nombre:${plushtoy[0]} ventas ${plushtoy[1]} ganancias $gananciassubtotales");
+  for (var peluche in inventario){
+  double gananciassubtotales= peluche[2]*peluche[1];
+print("las ganancias totales por peluche son: nombre:${peluche[0]} ventas ${peluche[1]} ganancias $gananciassubtotales");
   gananciastotales+=gananciassubtotales;
   }
   
 print("las ganancias totales son $gananciastotales");
+}
+void main(){
+  bool salir= false;
+  while (!salir){
+  print("Menu principal gestor de inventarios\n por favor seleccione la opcion que decea con su respectivo numero\n1.agregar\n2.buscar\n3.eliminar\n4.mostrar inventario\n5.realizar venta\n6.mostrar ganancias totales\n7.salir");
+int opcion= int.parse(stdin.readLineSync()!);
+    switch (opcion){
+      case 1:
+      agregarpeluche();
+        break;
+      case 2: 
+        buscarpeluche();
+        break;
+      case 3:
+        eliminarpeluche();
+        break;
+      case 4:
+        mostrarinventario();
+        break;
+      case 5:
+       realizarventa();
+        break;
+      case 6:
+        mostrargananciastotales();
+        break;
+      case 7:
+        print("gracias por su tiempo"); 
+        salir=true;
+        break;
+      default:
+        print("opcion invalida intente de nuevo por favor");
+        break;
+    }
+  }
 }
